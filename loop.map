@@ -1,0 +1,56 @@
+[
+    {
+            "name": "Enchanted Forest",
+            "desc": "A mystical forest filled with ancient trees and magical creatures. A path leads north and east.",
+            "items": ["magic potion", "mystic key"],
+            "exits": { "north": 1, "east": 2 },
+            "locked": false
+        },
+        {
+            "name": "Mountain Pass",
+            "desc": "A treacherous path through the mountains with a breathtaking view. Paths lead south and east.",
+            "items": ["rope", "lantern"],
+            "exits": { "south": 0, "east": 3 },
+            "locked": false
+        },
+        {
+            "name": "Mystic River",
+            "desc": "A serene river that flows gently. A boat is docked here. Paths lead west and north.",
+            "items": ["boat", "ancient map"],
+            "exits": { "west": 0, "north": 3 },
+            "locked": false
+        },
+        {
+            "name": "Dragon's Lair",
+            "desc": "A dark, foreboding cave where a fearsome dragon resides. A narrow path leads west.",
+            "items": ["dragon scale", "enchanted sword"],
+            "exits": { "west": 4 },
+            "locked": false
+        },
+        {
+            "name": "Wizard's Tower",
+            "desc": "A towering spire belonging to a mysterious wizard. Magical energy permeates the air.",
+            "items": ["spell book", "crystal ball"],
+            "exits": {"east": 5 , "south": 3},
+            "locked": {"down": true},
+            "key": "dragon scale"
+        },
+        {
+            "name": "Ancient Ruins",
+            "desc": "Ruins of an ancient civilization, rumored to hide untold secrets. There is a curse gem here if you don't have crystal ball you'll die",
+            "items": ["treasure chest"],
+            "exits": {},
+            "locked": {"west": true},
+            "key": "mystic key",
+            "conditions": {
+                "win": {
+                    "item": "crystal ball",
+                    "message": "You have uncovered the treasure of the ancients and secured your legacy. Congratulations, you've won!"
+                },
+                "lose": {
+                    "item": "cursed gem",
+                    "message": "The gem curses you. The forest consumes you in darkness. Game Over."
+                }
+            }
+        }
+]
