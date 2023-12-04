@@ -85,8 +85,10 @@ class AdventureGame:
             "quit": self.quit_game
         }
 
-        if base_command in command_methods:
+        if base_command in command_methods and len(command_parts)>1:
             command_methods[base_command](command_parts)
+        elif base_command in command_methods:
+            command_methods[base_command]()
         else:
             print("Invalid command. Try 'help' for a list of valid commands.")
     
@@ -139,9 +141,9 @@ class AdventureGame:
         print(f"> {location['name']}\n")
         print(f"{location['desc']}\n")
         if "items" in location:
-            print("Items: " + ", ".join(location["items"]))
+            print("Items: " + " ".join(location["items"]))
         if "exits" in location:
-            print("Exits: " + ", ".join(location["exits"].keys()))
+            print("Exits: " + " ".join(location["exits"].keys()))
         print()
 
     def handle_get_command(self, command_parts):
@@ -149,7 +151,7 @@ class AdventureGame:
             item_abbr = " ".join(command_parts[1:])
             self.get_item_by_abbr(item_abbr)
         else:
-            print("You must specify an item to get.")
+            print("Sorry, you need to 'get' something.")
 
     def get_item_by_abbr(self, item_abbr):
         location = self.game_map[self.current_location]
@@ -157,7 +159,7 @@ class AdventureGame:
         if matching_items:
             self.pick_up_item(matching_items[0])
         else:
-            print("That item is not here.")
+            print(f"There is no {item_abbr} anywhere.")
 
     def pick_up_item(self, item_name):
         location = self.game_map[self.current_location]
@@ -166,7 +168,7 @@ class AdventureGame:
             self.player_inventory.append(item_name)
             print(f"You pick up the {item_name}.")
         else:
-            print(f"There is no {item_name} here.")
+            print(f"There is no {item_name} anywhere.")
 
     def handle_drop_command(self, command_parts):
         if len(command_parts) > 1:
@@ -185,21 +187,23 @@ class AdventureGame:
 
     def show_inventory(self):
         if self.player_inventory:
-            print("You are carrying: " + ", ".join(self.player_inventory))
+            print("Inventory: ")
+            for i in self.player_inventory:
+                print(" ",i)
         else:
-            print("Your inventory is empty.")
+            print("You're not carrying anything.")
 
     def show_items(self):
         location = self.game_map[self.current_location]
         if "items" in location and location["items"]:
-            print("Items in this location: " + ", ".join(location["items"]))
+            print("Items in this location: " + " ".join(location["items"]))
         else:
             print("There are no items here.")
 
     def show_exits(self):
         location = self.game_map[self.current_location]
         if "exits" in location:
-            print("Available exits: " + ", ".join(location["exits"].keys()))
+            print("Available exits: " + " ".join(location["exits"].keys()))
     
     def show_help(self):
         print("Available commands:")
@@ -227,3 +231,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
