@@ -162,7 +162,7 @@ class AdventureGame:
         if matching_items:
             self.pick_up_item(matching_items[0])
         else:
-            print(f"There is no {item_abbr} anywhere.")
+            print(f"There's no {item_abbr} anywhere.")
 
     def pick_up_item(self, item_name):
         location = self.game_map[self.current_location]
@@ -171,7 +171,7 @@ class AdventureGame:
             self.player_inventory.append(item_name)
             print(f"You pick up the {item_name}.")
         else:
-            print(f"There is no {item_name} anywhere.")
+            print(f"There's no {item_name} anywhere.")
 
     def handle_drop_command(self, command_parts):
         if len(command_parts) > 1:
