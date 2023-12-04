@@ -87,6 +87,8 @@ class AdventureGame:
 
         if base_command in command_methods and len(command_parts)>1:
             command_methods[base_command](command_parts)
+        elif base_command == "get":
+            print("Sorry, you need to 'get' something.")
         elif base_command in command_methods:
             command_methods[base_command]()
         else:
@@ -140,8 +142,9 @@ class AdventureGame:
         location = self.game_map[self.current_location]
         print(f"> {location['name']}\n")
         print(f"{location['desc']}\n")
-        if "items" in location:
+        if "items" in location and len(location["items"])>0:
             print("Items: " + " ".join(location["items"]))
+            print()
         if "exits" in location:
             print("Exits: " + " ".join(location["exits"].keys()))
         print()
@@ -187,7 +190,7 @@ class AdventureGame:
 
     def show_inventory(self):
         if self.player_inventory:
-            print("Inventory: ")
+            print("Inventory:")
             for i in self.player_inventory:
                 print(" ",i)
         else:
@@ -217,7 +220,7 @@ class AdventureGame:
         print("  help - Display this help message.")
         print("  quit - Exit the game.")
     
-    def quit_game(self, _):
+    def quit_game(self):
         print("Goodbye!")
         self.game_running = False
 
